@@ -1,5 +1,7 @@
 const gameController = (doc => {
-
+  let modal = doc.getElementById("myModal");
+  let closeBtn = doc.getElementsByClassName("close")[0];
+  let gameOverText = doc.getElementById("gameover-text");
   let currentTurn = 1;
   const winConditions = [
     [0, 1, 2],
@@ -12,7 +14,7 @@ const gameController = (doc => {
     [2, 4, 6]
   ];
 
-  const checkGameState = (doc) => {
+  const checkGameState = doc => {
     for (let i = 0; i < winConditions.length; i++) {
       if (
         currentBoard[winConditions[i][0]].innerHTML &&
@@ -30,11 +32,17 @@ const gameController = (doc => {
         }
       }
     }
-    currentTurn++;
+    if (++currentTurn > 9) {
+      gameOver("Draw");
+    }
   };
 
-  const gameOver = (gameResult) => {
-    console.log(`Game over: ${gameResult} wins`);
+  const gameOver = gameResult => {
+    gameOverText.innerText =
+      gameResult === "Draw"
+        ? `Game over: ${gameResult}`
+        : `Game over: Player ${gameResult} wins!`;
+    modal.style.display = "block";
   };
 
   const gameBoard = (() => {
@@ -44,14 +52,32 @@ const gameController = (doc => {
       board[i] = doc.createElement("div");
       board[i].classList.add("game-square");
       board[i].addEventListener("click", e => {
-          if(e.target.textContent == ''){
-            e.target.textContent = currentTurn % 2 !== 0 ? "X" : "O";
-            checkGameState();
-            if (currentTurn > 9) gameOver();
-          }
+        if (e.target.textContent == "") {
+          e.target.textContent = currentTurn % 2 !== 0 ? "X" : "O";
+          checkGameState();
+        }
       });
       boardContainer.appendChild(board[i]);
     }
   })(doc);
   const currentBoard = doc.getElementsByClassName("game-square");
- })(document);
+
+  closeBtn.onclick = function() {
+    modal.style.display = "none";
+    gameReset();
+  };
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+      gameReset();
+    }
+  };
+
+  const gameReset = () =>{
+    for(i = 0; i < currentBoard.length; i++){
+      currentBoard[i].textContent = '';
+      currentTurn = 1;
+    }
+  };
+})(document);

@@ -11,12 +11,63 @@ main {
     align-items: center;
     justify-content: center;
     height: 80%;
+    min-height: 80%;
+    min-width: 80%;
 }
 
 .game-square{
-    height: 33%;
-    width: 33%;
+    min-height: 33%;
+    min-width: 33%;
     text-align: center;
     border: 1px solid black; 
     font-size: 20vh;
 }
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+  }
+  
+ 
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+    height:40%;
+  }
+  #gameover-text {
+      padding-top: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      font-size: 64px;
+      text-align: center;
+      height: 80%;
+
+  }
+  
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
