@@ -1,0 +1,22 @@
+
+main {
+    height: 100vh;
+    width: 100vw;
+}
+
+#board-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+}
+
+.game-square{
+    height: 33%;
+    width: 33%;
+    text-align: center;
+    border: 1px solid black; 
+    font-size: 20vh;
+}
